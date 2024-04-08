@@ -1,4 +1,4 @@
-from diffusers import StableDiffusionPipeline
+from diffusers import DiffusionPipeline
 import torch
 import random
 from PIL import Image
@@ -47,7 +47,7 @@ SEED = args.seed if args.seed is not None else random.randint(0, 1e6)
 def init_pipeline():
     # model_id = "runwayml/stable-diffusion-v1-5"
     model_id = "stabilityai/stable-diffusion-xl-base-1.0"
-    pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
+    pipe = DiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16, variant="fp16", use_safetensors=True)
     pipe = pipe.to(device)
 
     return pipe
